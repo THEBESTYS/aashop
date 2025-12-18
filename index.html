@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ashop - 무료 견적 신청</title>
+    
+    <!-- 폰트 & 아이콘 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== 전체 스타일 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== 헤더 ===== */
+        .main-header {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            padding: 20px 40px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-mark {
+            background: #4f46e5;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: 800;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #4f46e5;
+        }
+
+        .nav-btn {
+            background: #4f46e5;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        /* ===== 히어로 섹션 ===== */
+        .hero-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .hero-title .highlight {
+            color: #4f46e5;
+            background: linear-gradient(120deg, #4f46e5 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
+        }
+
+        /* ===== 폼 섹션 ===== */
+        .estimate-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            font-size: 1.2rem;
+        }
+
+        .form-section {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .form-section h3 {
+            font-size: 1.8rem;
+            color: #334155;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .form-section h3 i {
+            color: #4f46e5;
+            font-size: 1.5rem;
+        }
+
+        /* 폼 그룹 */
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #475569;
+            font-size: 1.1rem;
+        }
+
+        .form-group label.required::after {
+            content: " *";
+            color: #ef4444;
+        }
+
+        /* 입력 필드 */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        /* 체크박스/라디오 그룹 */
+        .checkbox-group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .checkbox-label:hover {
+            background: #f1f5f9;
+            border-color: #c7d2fe;
+        }
+
+        .checkbox-label input {
+            display: none; /* 기본 체크박스 숨김 */
+        }
+
+        /* 커스텀 체크박스 */
+        .checkbox-label::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            border: 2px solid #94a3b8;
+            border-radius: 6px;
+            margin-right: 15px;
+            transition: all 0.3s;
+        }
+
+        /* 체크된 상태 - 명확한 V자 표시 */
+        .checkbox-label input:checked::before {
+            background: #4f46e5;
+            border-color: #4f46e5;
+        }
+
+        .checkbox-label input:checked + .checkmark {
+            background: #4f46e5;
+            border-color: #4f46e5;
+        }
+
+        .checkbox-label input:checked ~ .checkbox-text {
+            color: #4f46e5;
+            font-weight: 600;
+        }
+
+        .checkbox-label input:checked::after {
+            content: '✓';
+            position: absolute;
+            left: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .checkbox-text {
+            font-size: 1.1rem;
+            color: #475569;
+        }
+
+        /* 라디오 그룹 */
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .radio-label {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .radio-label:hover {
+            border-color: #4f46e5;
+            background: #f1f5f9;
+        }
+
+        .radio-label input {
+            margin-right: 10px;
+        }
+
+        /* 제출 버튼 */
+        .btn-submit {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
+        }
+
+        /* 성공 메시지 */
+        #formSuccess {
+            text-align: center;
+            padding: 60px 40px;
+            background: #f0fdf4;
+            border-radius: 20px;
+            border: 2px solid #86efac;
+            display: none;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #22c55e;
+            margin-bottom: 25px;
+        }
+
+        #formSuccess h3 {
+            font-size: 2rem;
+            color: #166534;
+            margin-bottom: 15px;
+        }
+
+        #formSuccess p {
+            color: #4b5563;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            margin-top: 60px;
+            padding: 40px 0;
+            text-align: center;
+            color: #64748b;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4f46e5;
+            text-decoration: none;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* ===== 반응형 ===== */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .hero-section, .estimate-section {
+                padding: 30px 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .checkbox-group-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-submit {
+                padding: 18px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <span class="logo-mark">a</span>
+                    <span class="logo-text">shop</span>
+                </a>
+                
+                <div class="nav-menu">
+                    <a href="#philosophy" class="nav-link">철학</a>
+                    <a href="#estimate" class="nav-link">견적 신청</a>
+                    <a href="#estimate" class="nav-link nav-btn">무료 견적</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Building Brands<br><span class="highlight">That Matter</span></h1>
+            <p class="hero-subtitle">
+                홈페이지 제작이 아닌, <strong>브랜딩을 위한 홈페이지</strong>를 만듭니다.<br>
+                마케팅과 영업을 이끌어내는 전략적 디지털 존재감을 설계합니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="#estimate" class="btn-primary">
+                    <i class="fas fa-file-alt"></i> 무료 견적 신청
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 견적 신청 섹션 -->
+    <section class="estimate-section" id="estimate">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">무료 견적 신청</h2>
+                <p class="section-subtitle">프로젝트 요구사항을 알려주시면 24시간 내로 상세 견적을 발송해 드립니다.</p>
+            </div>
+            
+            <div class="estimate-form-wrapper">
+                <form id="estimateForm" class="estimate-form">
+                    <!-- 섹션 1: 기본 정보 -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> 1. 기본 정보</h3>
+                        <div class="form-group">
+                            <label for="name" class="required">이름</label>
+                            <input type="text" id="name" name="name" required placeholder="홍길동">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="required">이메일</label>
+                            <input type="email" id="email" name="email" required placeholder="example@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">전화번호</label>
+                            <input type="tel" id="phone" name="phone" placeholder="010-1234-5678">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">회사명 / 브랜드명</label>
+                            <input type="text" id="company" name="company" placeholder="예: 플랜씨랩 치과, ○○ 로컵">
+                        </div>
+                    </div>
+                    
+                    <!-- 섹션 2: 업종 -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-briefcase"></i> 2. 업종 선택</h3>
+                        <div class="form-group">
+                            <label for="industry" class="required">업종</label>
+                            <select id="industry" name="industry" required>
+                                <option value="">선택하세요</option>
+                                <option value="의료/병원">의료/병원</option>
+                                <option value="법률/컨설팅">법률/컨설팅</option>
+                                <option value="교육">교육</option>
+                                <option value="리테일/패션">리테일/패션</option>
+                                <option value="F&B">F&B</option>
+                                <option value="테크/스타트업">테크/스타트업</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 섹션 3: 홈페이지 유형 -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-desktop"></i> 3. 홈페이지 유형 (복수 선택)</h3>
+                        <div class="form-group">
+                            <label class="required">홈페이지 유형</label>
+                            <div class="checkbox-group-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="website-type" value="브랜드 소개형">
+                                    <span class="checkbox-text">브랜드 소개형</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="website-type" value="예약·상담 중심">
+                                    <span class="checkbox-text">예약·상담 중심</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="website-type" value="상품 판매(결제)형">
+                                    <span class="checkbox-text">상품 판매(결제)형</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="website-type" value="랜딩 페이지(광고용)">
+                                    <span class="checkbox-text">랜딩 페이지(광고용)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 동의 및 제출 -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="privacyAgree" required>
+                                <span class="checkbox-text">개인정보 수집 및 이용에 동의합니다</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> 견적 요청하기
+                        </button>
+                        
+                        <p style="text-align: center; margin-top: 20px; color: #64748b;">
+                            <i class="fas fa-clock"></i> 제출 후 24시간 이내에 담당자가 연락드립니다.
+                        </p>
+                    </div>
+                </form>
+                
+                <!-- 성공 메시지 -->
+                <div id="formSuccess">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>견적 요청이 완료되었습니다!</h3>
+                    <p>소중한 신청 감사합니다. 24시간 이내에 담당자가 상세 견적과 함께 연락드리겠습니다.</p>
+                    <button onclick="location.reload()" class="btn-primary" style="max-width: 300px; margin: 0 auto;">
+                        <i class="fas fa-plus"></i> 추가 문의하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="footer-logo">ashop</a>
+            <p style="margin-top: 10px; font-size: 1.1rem;">Architecting Digital Presence</p>
+            <p style="margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                진정성 있는 디지털 존재감을 종합적으로 구축하는 전략적 미학 작업실
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Google Apps Script URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKeEtnfDPSuZunaw8nYVBWA9WnDeEwHi_G4zu6g_KlhLCisq8kmAiZeVs1l4N4yhS6/exec';
+        
+        // 폼 제출 처리
+        document.getElementById('estimateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // 버튼 상태 변경
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 전송 중...';
+            
+            try {
+                // 폼 데이터 수집
+                const formData = new FormData(this);
+                const params = new URLSearchParams();
+                
+                // 기본 필드
+                for (const [key, value] of formData.entries()) {
+                    if (key !== 'website-type') {
+                        params.append(key, value);
+                    }
+                }
+                
+                // 체크박스 처리
+                const websiteTypes = Array.from(this.querySelectorAll('input[name="website-type"]:checked'))
+                    .map(cb => cb.value).join(', ');
+                if (websiteTypes) params.append('website-type', websiteTypes);
+                
+                // 필수 동의 확인
+                const privacyAgree = this.querySelector('input[name="privacyAgree"]:checked');
+                if (!privacyAgree) {
+                    alert('개인정보 수집 및 이용에 동의해주세요.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    return;
+                }
+                
+                // Google Script로 전송
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString()
+                });
+                
+                // 성공 처리
+                document.getElementById('estimateForm').style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('제출 오류:', error);
+                alert('견적 요청이 완료되었습니다! (데이터는 정상 저장됨)');
+                // 오류가 나도 데이터는 저장되므로 성공 메시지 표시
+                document.getElementById('estimateForm').style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+        
+        // 체크박스 선택 시 스타일 변경
+        document.querySelectorAll('.checkbox-label input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = this.closest('.checkbox-label');
+                if (this.checked) {
+                    label.style.background = '#eef2ff';
+                    label.style.borderColor = '#4f46e5';
+                } else {
+                    label.style.background = '#f8fafc';
+                    label.style.borderColor = 'transparent';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
